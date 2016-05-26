@@ -1,17 +1,48 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using ASP_Reboot.Models;
+using System.Net.Mail;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
+using SendGrid;
 
 namespace ASP_Reboot.Controllers
 {
     public class InventoryController : Controller
     {
+        public string classpick(int quantity, string productName)
+        {
+            string a_class="";
+            if(quantity >= 10)
+            {
+                a_class = "green";
+            }
+            else if (quantity >= 5)
+            {
+                a_class = "amber";
+            }
+            else if (quantity < 5)
+            {
+                warningMail(quantity.ToString(), productName);
+                a_class = "red";
+            }
+            return a_class;
+        }
+        public async Task warningMail(string quantity, string productName)
+        {
+            var myMessage = new SendGridMessage();
+            myMessage.From = new MailAddress("no-reply@devHax.prod", "Dan is the MAN");
+            myMessage.AddTo("theguy@wi.rr.com");
+            myMessage.AddTo("charlesciezki@yahoo.com");
+            myMessage.Subject = productName + " need to be refilled!";
+            myMessage.Text = "There are only " + quantity + " " + productName + " remaining in stock. Order more soon.";
+            var credentials = new NetworkCredential("quikdevstudent", "Lexusi$3");
+            var transportWeb = new Web(credentials);
+            await transportWeb.DeliverAsync(myMessage);
+        }
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Inventory
@@ -46,7 +77,7 @@ namespace ASP_Reboot.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,SKU,productName,price,quantity,StoreModels_Id")] InventoryModels inventoryModels)
+        public ActionResult Create([Bind(Include = "Id,SKU,productName,price,quantity")] InventoryModels inventoryModels)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +109,7 @@ namespace ASP_Reboot.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,SKU,productName,price,quantity,StoreModels_Id")] InventoryModels inventoryModels)
+        public ActionResult Edit([Bind(Include = "Id,SKU,productName,price,quantity")] InventoryModels inventoryModels)
         {
             if (ModelState.IsValid)
             {

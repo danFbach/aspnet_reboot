@@ -3,7 +3,7 @@ namespace ASP_Reboot.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class update0 : DbMigration
+    public partial class temp : DbMigration
     {
         public override void Up()
         {

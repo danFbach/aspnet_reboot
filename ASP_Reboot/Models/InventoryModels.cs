@@ -23,12 +23,5 @@ namespace ASP_Reboot.Models
         [Display(Name = "Quantity")]
         public virtual int quantity { get; set; }
 
-        [Required]
-        [Display(Name = "Store")]
-        public int StoreModelsId { get; set; }
-
-        [Required]
-        public virtual StoreModels StoreModels { get; set; }
-
     }
 }

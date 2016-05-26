@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Security.Claims;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
-using System.Web;
 using Microsoft.AspNet.Identity;
+using SendGrid;
+using System.Security.Claims;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
@@ -16,11 +15,32 @@ namespace ASP_Reboot
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
-        {
-            // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+        public async Task SendAsync(IdentityMessage message)
+        {// Create the email object first, then add the properties.
+            var myMessage = new SendGridMessage();
+
+            // this defines email and name of the sender
+            myMessage.From = new MailAddress("no-reply@devHax.prod", "Dan is the MAN");
+
+            // set where we are sending the email
+            myMessage.AddTo(message.Destination);
+
+            myMessage.Subject = message.Subject;
+
+            // make sure all your messages are formatted as HTML
+            myMessage.Html = message.Body;
+
+            // Create credentials, specifying your SendGrid username and password.
+            var credentials = new NetworkCredential("quikdevstudent", "Lexusi$3");
+
+            // Create an Web transport for sending email.
+            var transportWeb = new Web(credentials);
+
+            // Send the email.u
+            await transportWeb.DeliverAsync(myMessage);
+            
         }
+
     }
 
     public class SmsService : IIdentityMessageService

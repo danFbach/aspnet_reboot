@@ -7,13 +7,13 @@ namespace ASP_Reboot.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class update0 : IMigrationMetadata
+    public sealed partial class temp : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(update0));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(temp));
         
         string IMigrationMetadata.Id
         {
-            get { return "201605260121370_update0"; }
+            get { return "201605260544107_temp"; }
         }
         
         string IMigrationMetadata.Source
