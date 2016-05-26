@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ASP_Reboot.Models.InventoryModels>
+﻿@model IEnumerable<ASP_Reboot.Models.StoreModels>
 
 @{
     ViewBag.Title = "Index";
@@ -12,19 +12,19 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.SKU)
+            @Html.DisplayNameFor(model => model.city)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.productName)
+            @Html.DisplayNameFor(model => model.address)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.price)
+            @Html.DisplayNameFor(model => model.zipcode)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.quantity)
+            @Html.DisplayNameFor(model => model.geoLat)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.StoreModelsId)
+            @Html.DisplayNameFor(model => model.getLong)
         </th>
         <th></th>
     </tr>
@@ -32,19 +32,19 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.SKU)
+            @Html.DisplayFor(modelItem => item.city)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.productName)
+            @Html.DisplayFor(modelItem => item.address)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.price)
+            @Html.DisplayFor(modelItem => item.zipcode)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.quantity)
+            @Html.DisplayFor(modelItem => item.geoLat)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.StoreModelsId)
+            @Html.DisplayFor(modelItem => item.getLong)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

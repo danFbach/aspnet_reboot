@@ -200,22 +200,28 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201605252130263_users.cs" />
-    <Compile Include="Migrations\201605252130263_users.Designer.cs">
-      <DependentUpon>201605252130263_users.cs</DependentUpon>
+    <Compile Include="Migrations\201605260121370_update0.cs" />
+    <Compile Include="Migrations\201605260121370_update0.Designer.cs">
+      <DependentUpon>201605260121370_update0.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201605252316073_inventory.cs" />
-    <Compile Include="Migrations\201605252316073_inventory.Designer.cs">
-      <DependentUpon>201605252316073_inventory.cs</DependentUpon>
+    <Compile Include="Migrations\201605260122530_update1.cs" />
+    <Compile Include="Migrations\201605260122530_update1.Designer.cs">
+      <DependentUpon>201605260122530_update1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605260126234_update2.cs" />
+    <Compile Include="Migrations\201605260126234_update2.Designer.cs">
+      <DependentUpon>201605260126234_update2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\InventoryModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\StoreModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -293,12 +299,17 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Scripts\jquery-2.2.3.min.map" />
     <Content Include="Views\Inventory\Create.cshtml" />
     <Content Include="Views\Inventory\Delete.cshtml" />
     <Content Include="Views\Inventory\Details.cshtml" />
     <Content Include="Views\Inventory\Edit.cshtml" />
     <Content Include="Views\Inventory\Index.cshtml" />
-    <Content Include="Scripts\jquery-2.2.3.min.map" />
+    <Content Include="Views\Store\Create.cshtml" />
+    <Content Include="Views\Store\Delete.cshtml" />
+    <Content Include="Views\Store\Details.cshtml" />
+    <Content Include="Views\Store\Edit.cshtml" />
+    <Content Include="Views\Store\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -308,11 +319,14 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201605252130263_users.resx">
-      <DependentUpon>201605252130263_users.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201605260121370_update0.resx">
+      <DependentUpon>201605260121370_update0.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605252316073_inventory.resx">
-      <DependentUpon>201605252316073_inventory.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201605260122530_update1.resx">
+      <DependentUpon>201605260122530_update1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605260126234_update2.resx">
+      <DependentUpon>201605260126234_update2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,4 +1,4 @@
-﻿@model ASP_Reboot.Models.InventoryModels
+﻿@model ASP_Reboot.Models.StoreModels
 
 @{
     ViewBag.Title = "Delete";
@@ -8,47 +8,47 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>InventoryModels</h4>
+    <h4>StoreModels</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.SKU)
+            @Html.DisplayNameFor(model => model.city)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.SKU)
+            @Html.DisplayFor(model => model.city)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.productName)
+            @Html.DisplayNameFor(model => model.address)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.productName)
+            @Html.DisplayFor(model => model.address)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.price)
+            @Html.DisplayNameFor(model => model.zipcode)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.price)
+            @Html.DisplayFor(model => model.zipcode)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.quantity)
+            @Html.DisplayNameFor(model => model.geoLat)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.quantity)
+            @Html.DisplayFor(model => model.geoLat)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.StoreModelsId)
+            @Html.DisplayNameFor(model => model.getLong)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.StoreModelsId)
+            @Html.DisplayFor(model => model.getLong)
         </dd>
 
     </dl>

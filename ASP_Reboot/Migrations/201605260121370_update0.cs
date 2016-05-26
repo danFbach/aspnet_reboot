@@ -3,10 +3,22 @@ namespace ASP_Reboot.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class users : DbMigration
+    public partial class update0 : DbMigration
     {
         public override void Up()
         {
+            CreateTable(
+                "dbo.InventoryModels",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        SKU = c.Int(nullable: false),
+                        productName = c.String(nullable: false),
+                        price = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        quantity = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
             CreateTable(
                 "dbo.AspNetRoles",
                 c => new
@@ -29,6 +41,19 @@ namespace ASP_Reboot.Migrations
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId)
                 .Index(t => t.RoleId);
+            
+            CreateTable(
+                "dbo.StoreModels",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        city = c.String(nullable: false),
+                        address = c.String(nullable: false),
+                        zipcode = c.Int(nullable: false),
+                        geoLat = c.Double(nullable: false),
+                        getLong = c.Double(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -92,8 +117,10 @@ namespace ASP_Reboot.Migrations
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
+            DropTable("dbo.StoreModels");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.InventoryModels");
         }
     }
 }

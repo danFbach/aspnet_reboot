@@ -10,107 +10,107 @@ using ASP_Reboot.Models;
 
 namespace ASP_Reboot.Controllers
 {
-    public class InventoryController : Controller
+    public class StoreController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Inventory
+        // GET: Store
         public ActionResult Index()
         {
-            return View(db.InventoryModels.ToList());
+            return View(db.StoreModels.ToList());
         }
 
-        // GET: Inventory/Details/5
+        // GET: Store/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            InventoryModels inventoryModels = db.InventoryModels.Find(id);
-            if (inventoryModels == null)
+            StoreModels storeModels = db.StoreModels.Find(id);
+            if (storeModels == null)
             {
                 return HttpNotFound();
             }
-            return View(inventoryModels);
+            return View(storeModels);
         }
 
-        // GET: Inventory/Create
+        // GET: Store/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Inventory/Create
+        // POST: Store/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,SKU,productName,price,quantity,StoreModels_Id")] InventoryModels inventoryModels)
+        public ActionResult Create([Bind(Include = "Id,city,address,zipcode,geoLat,getLong")] StoreModels storeModels)
         {
             if (ModelState.IsValid)
             {
-                db.InventoryModels.Add(inventoryModels);
+                db.StoreModels.Add(storeModels);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(inventoryModels);
+            return View(storeModels);
         }
 
-        // GET: Inventory/Edit/5
+        // GET: Store/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            InventoryModels inventoryModels = db.InventoryModels.Find(id);
-            if (inventoryModels == null)
+            StoreModels storeModels = db.StoreModels.Find(id);
+            if (storeModels == null)
             {
                 return HttpNotFound();
             }
-            return View(inventoryModels);
+            return View(storeModels);
         }
 
-        // POST: Inventory/Edit/5
+        // POST: Store/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,SKU,productName,price,quantity,StoreModels_Id")] InventoryModels inventoryModels)
+        public ActionResult Edit([Bind(Include = "Id,city,address,zipcode,geoLat,getLong")] StoreModels storeModels)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(inventoryModels).State = EntityState.Modified;
+                db.Entry(storeModels).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(inventoryModels);
+            return View(storeModels);
         }
 
-        // GET: Inventory/Delete/5
+        // GET: Store/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            InventoryModels inventoryModels = db.InventoryModels.Find(id);
-            if (inventoryModels == null)
+            StoreModels storeModels = db.StoreModels.Find(id);
+            if (storeModels == null)
             {
                 return HttpNotFound();
             }
-            return View(inventoryModels);
+            return View(storeModels);
         }
 
-        // POST: Inventory/Delete/5
+        // POST: Store/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            InventoryModels inventoryModels = db.InventoryModels.Find(id);
-            db.InventoryModels.Remove(inventoryModels);
+            StoreModels storeModels = db.StoreModels.Find(id);
+            db.StoreModels.Remove(storeModels);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

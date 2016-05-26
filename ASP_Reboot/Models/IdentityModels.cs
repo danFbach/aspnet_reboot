@@ -32,5 +32,7 @@ namespace ASP_Reboot.Models
         }
 
         public System.Data.Entity.DbSet<ASP_Reboot.Models.InventoryModels> InventoryModels { get; set; }
+
+        public System.Data.Entity.DbSet<ASP_Reboot.Models.StoreModels> StoreModels { get; set; }
     }
 }

@@ -1,0 +1,58 @@
+﻿@model ASP_Reboot.Models.StoreModels
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>StoreModels</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.city)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.city)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.zipcode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.zipcode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.geoLat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.geoLat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.getLong)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.getLong)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
