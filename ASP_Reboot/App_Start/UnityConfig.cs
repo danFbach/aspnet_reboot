@@ -2,6 +2,7 @@ using System.Web.Mvc;
 using Microsoft.Practices.Unity;
 using Unity.Mvc5;
 using Microsoft.AspNet.Identity;
+using ASP_Reboot.Controllers;
 
 namespace ASP_Reboot
 {
@@ -18,6 +19,8 @@ namespace ASP_Reboot
             
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
             container.RegisterType<IIdentityMessageService, EmailService>();
+            container.RegisterType<AccountController>(new InjectionConstructor());
+            container.RegisterType<ManageController>(new InjectionConstructor());
         }
     }
 }
