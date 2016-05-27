@@ -14,22 +14,42 @@ namespace ASP_Reboot.Controllers
 {
     public class InventoryController : Controller
     {
-        public string classpick(int quantity, string productName)
+        private ApplicationDbContext db = new ApplicationDbContext();
+
+        //public object locations(List<int> Id)
+        //{
+        //    var currentLocations = "";
+        //    foreach(int id in Id)
+        //    {
+        //        currentLocations += (db.StoreModels.Find(id));
+        //    }
+        //    return currentLocations;
+        //}
+        public string classpick(int quantity, string productName, int id)
         {
             string a_class="";
-            if(quantity >= 10)
+            InventoryModels current_product = db.InventoryModels.Find(id);
+
+            if (quantity >= 10)
             {
+                current_product.warningSent = 1;
                 a_class = "green";
             }
             else if (quantity >= 5)
             {
+                current_product.warningSent = 1;
                 a_class = "amber";
             }
             else if (quantity < 5)
             {
-                warningMail(quantity.ToString(), productName);
+                if (current_product.warningSent.Equals(1))
+                {
+                    warningMail(quantity.ToString(), productName);
+                    current_product.warningSent = 0;
+                }
                 a_class = "red";
             }
+            db.SaveChanges();
             return a_class;
         }
         public async Task warningMail(string quantity, string productName)
@@ -37,14 +57,12 @@ namespace ASP_Reboot.Controllers
             var myMessage = new SendGridMessage();
             myMessage.From = new MailAddress("no-reply@devHax.prod", "MOTHA FUCKIN TINY RICK");
             myMessage.AddTo("theguy@wi.rr.com");
-            myMessage.AddTo("charlesciezki@yahoo.com");
             myMessage.Subject = productName + " need to be refilled!";
             myMessage.Text = "There are only " + quantity + " " + productName + " remaining in stock. Order more soon.";
             var credentials = new NetworkCredential("quikdevstudent", "Lexusi$3");
             var transportWeb = new Web(credentials);
             await transportWeb.DeliverAsync(myMessage);
         }
-        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Inventory
         public ActionResult Index(int? searchString)
@@ -96,7 +114,7 @@ namespace ASP_Reboot.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,SKU,productName,price,quantity,store")] InventoryModels inventoryModels)
+        public ActionResult Create([Bind(Include = "Id,SKU,productName,price,quantity,warningSent,store_id")] InventoryModels inventoryModels)
         {
             if (ModelState.IsValid)
             {
@@ -128,8 +146,9 @@ namespace ASP_Reboot.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,SKU,productName,price,quantity,store")] InventoryModels inventoryModels)
+        public ActionResult Edit([Bind(Include = "Id,SKU,productName,price,quantity,warningSent,store_id")] InventoryModels inventoryModels)
         {
+            var warn = inventoryModels.warningSent;
             if (ModelState.IsValid)
             {
                 db.Entry(inventoryModels).State = EntityState.Modified;
@@ -172,6 +191,17 @@ namespace ASP_Reboot.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        public List<SelectListItem> getStoreDropDown()
+        {
+            List<SelectListItem> storelist = new List<SelectListItem>();
+            var stores = db.StoreModels.ToList();
+            foreach (StoreModels store in stores)
+            {
+                string txt = "Id: " + store.Id + " City: " + store.city;
+                storelist.Add(new SelectListItem() { Text = txt, Value = store.Id.ToString() });
+            }
+            return storelist;
         }
     }
 }

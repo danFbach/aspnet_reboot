@@ -15,30 +15,10 @@ namespace ASP_Reboot
 {
     public class EmailService : IIdentityMessageService
     {
-        public async Task SendAsync(IdentityMessage message)
-        {// Create the email object first, then add the properties.
-            var myMessage = new SendGridMessage();
+        public Task SendAsync(IdentityMessage message)
+        {
+            return Task.FromResult(0);
 
-            // this defines email and name of the sender
-            myMessage.From = new MailAddress("no-reply@devHax.prod", "Dan is the MAN");
-
-            // set where we are sending the email
-            myMessage.AddTo(message.Destination);
-
-            myMessage.Subject = message.Subject;
-
-            // make sure all your messages are formatted as HTML
-            myMessage.Html = message.Body;
-
-            // Create credentials, specifying your SendGrid username and password.
-            var credentials = new NetworkCredential("quikdevstudent", "Lexusi$3");
-
-            // Create an Web transport for sending email.
-            var transportWeb = new Web(credentials);
-
-            // Send the email.u
-            await transportWeb.DeliverAsync(myMessage);
-            
         }
 
     }

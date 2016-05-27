@@ -14,16 +14,16 @@ td.amber {
 }
 .search-wrapper {
 	width: 500px;
-	margin-left: 75px;
+	margin-left: 100px;
 	margin-top: -50px;
 }
 .search-box {
 	width: 80%;
-	border: 1px solid #711;
-  	outline: 0;
+	border: 2px solid #e85c00;
   	border-radius: 25px;
+    transition: border-color 0.3s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 .search-box:focus {
-	box-shadow: 0 0 3px 3px #711;
-	border: 1px solid #711;
+	box-shadow: 0 0 3px 3px #e85c00;
+	border: 2px solid #33ccff;
 }
