@@ -3,7 +3,7 @@ namespace ASP_Reboot.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class temp : DbMigration
+    public partial class new_migration : DbMigration
     {
         public override void Up()
         {
@@ -16,6 +16,22 @@ namespace ASP_Reboot.Migrations
                         productName = c.String(nullable: false),
                         price = c.Decimal(nullable: false, precision: 18, scale: 2),
                         quantity = c.Int(nullable: false),
+                        store_Id = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.StoreModels", t => t.store_Id, cascadeDelete: true)
+                .Index(t => t.store_Id);
+            
+            CreateTable(
+                "dbo.StoreModels",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        city = c.String(nullable: false),
+                        address = c.String(nullable: false),
+                        zipcode = c.Int(nullable: false),
+                        geoLat = c.Double(nullable: false),
+                        getLong = c.Double(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -41,19 +57,6 @@ namespace ASP_Reboot.Migrations
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId)
                 .Index(t => t.RoleId);
-            
-            CreateTable(
-                "dbo.StoreModels",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        city = c.String(nullable: false),
-                        address = c.String(nullable: false),
-                        zipcode = c.Int(nullable: false),
-                        geoLat = c.Double(nullable: false),
-                        getLong = c.Double(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -108,18 +111,20 @@ namespace ASP_Reboot.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.InventoryModels", "store_Id", "dbo.StoreModels");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.InventoryModels", new[] { "store_Id" });
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
-            DropTable("dbo.StoreModels");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.StoreModels");
             DropTable("dbo.InventoryModels");
         }
     }
