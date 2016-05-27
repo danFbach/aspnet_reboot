@@ -3,7 +3,7 @@ namespace ASP_Reboot.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class temp : DbMigration
+    public partial class newmig : DbMigration
     {
         public override void Up()
         {
@@ -16,11 +16,12 @@ namespace ASP_Reboot.Migrations
                         productName = c.String(nullable: false),
                         price = c.Decimal(nullable: false, precision: 18, scale: 2),
                         quantity = c.Int(nullable: false),
-                        store_Id = c.Int(nullable: false),
+                        warningSent = c.Int(nullable: false),
+                        store_id = c.Int(nullable: false)
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.StoreModels", t => t.store_Id, cascadeDelete: true)
-                .Index(t => t.store_Id);
+                .ForeignKey("dbo.StoreModels", t => t.store_id)
+                .Index(t => t.store_id);
             
             CreateTable(
                 "dbo.StoreModels",

@@ -241,9 +241,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201605270135573_temp.cs" />
-    <Compile Include="Migrations\201605270135573_temp.Designer.cs">
-      <DependentUpon>201605270135573_temp.cs</DependentUpon>
+    <Compile Include="Migrations\201605272056046_new-mig.cs" />
+    <Compile Include="Migrations\201605272056046_new-mig.Designer.cs">
+      <DependentUpon>201605272056046_new-mig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605272059095_adf.cs" />
+    <Compile Include="Migrations\201605272059095_adf.Designer.cs">
+      <DependentUpon>201605272059095_adf.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -350,8 +354,11 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201605270135573_temp.resx">
-      <DependentUpon>201605270135573_temp.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201605272056046_new-mig.resx">
+      <DependentUpon>201605272056046_new-mig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605272059095_adf.resx">
+      <DependentUpon>201605272059095_adf.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

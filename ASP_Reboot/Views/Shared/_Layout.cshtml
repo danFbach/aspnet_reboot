@@ -18,13 +18,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("A Store", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("A store", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Inventory","Index","Inventory")</li>
                     <li>@Html.ActionLink("Store Home","Index","Store")</li>
                 </ul>
@@ -36,8 +34,12 @@
         @RenderBody()
         <hr />
         <footer style="width:100%;text-align:center;">
-            <p>&copy; @DateTime.Now.Year - DevHax Productions</p>
-            <img src="~/Content/Media/DevHacks.jpg" />
+            <center><a href="/Home/Index"><img src="~/Content/Media/create_thumb4.png" style="height:150px;" /></a></center>
+            <p>
+                &copy; @DateTime.Now.Year - DevHax Productions - 
+                @Html.ActionLink("About", "About", "Home") - 
+                @Html.ActionLink("Contact", "Contact", "Home")
+            </p>
         </footer>
     </div>
 

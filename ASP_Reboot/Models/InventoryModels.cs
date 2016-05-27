@@ -24,9 +24,11 @@ namespace ASP_Reboot.Models
         [Display(Name = "Quantity")]
         public int quantity { get; set; }
 
+        [Display(Name ="warningSent")]
+        public int warningSent { get; set; }
+
         [Required]
         [Display(Name = "Store Id")]
-
-        public virtual StoreModels store { get; set; }
+        public int store_id { get; set; }
     }
 }
