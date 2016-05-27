@@ -6,22 +6,27 @@ namespace ASP_Reboot.Models
     public class InventoryModels {
 
         [Required]
-        public virtual int Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [Display(Name ="SKU")]
-        public virtual int SKU { get; set; }
+        public int SKU { get; set; }
 
         [Required]
         [Display(Name = "Product Name")]
-        public virtual string productName { get; set; }
+        public string productName { get; set; }
 
         [Required]
         [Display(Name = "Price")]
-        public virtual decimal price { get; set; }
+        [DataType(DataType.Currency)]
+        public decimal price { get; set; }
 
         [Display(Name = "Quantity")]
-        public virtual int quantity { get; set; }
+        public int quantity { get; set; }
 
+        [Required]
+        [Display(Name = "Store Id")]
+
+        public virtual StoreModels store { get; set; }
     }
 }

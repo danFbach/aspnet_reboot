@@ -8,3 +8,22 @@ td.green {
 td.amber {
 	color: #FA2;
 }
+.search-box,.search-wrapper {
+	position:relative;
+	padding: 10px;
+}
+.search-wrapper {
+	width: 500px;
+	margin-left: 75px;
+	margin-top: -50px;
+}
+.search-box {
+	width: 80%;
+	border: 1px solid #711;
+  	outline: 0;
+  	border-radius: 25px;
+}
+.search-box:focus {
+	box-shadow: 0 0 3px 3px #711;
+	border: 1px solid #711;
+}

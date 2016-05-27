@@ -8,6 +8,7 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using SendGrid;
+using System.Collections.Generic;
 
 namespace ASP_Reboot.Controllers
 {
@@ -34,7 +35,7 @@ namespace ASP_Reboot.Controllers
         public async Task warningMail(string quantity, string productName)
         {
             var myMessage = new SendGridMessage();
-            myMessage.From = new MailAddress("no-reply@devHax.prod", "Dan is the MAN");
+            myMessage.From = new MailAddress("no-reply@devHax.prod", "MOTHA FUCKIN TINY RICK");
             myMessage.AddTo("theguy@wi.rr.com");
             myMessage.AddTo("charlesciezki@yahoo.com");
             myMessage.Subject = productName + " need to be refilled!";
@@ -46,8 +47,26 @@ namespace ASP_Reboot.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Inventory
-        public ActionResult Index()
+        public ActionResult Index(int? searchString)
         {
+            List<InventoryModels> inv = new List<InventoryModels>();
+
+            if (searchString != (null))
+            {
+                var inventory = db.InventoryModels.ToList();
+                foreach(InventoryModels item in inventory)
+                {
+                    if (item.SKU.Equals(searchString))
+                    {
+                        inv.Add(item);
+                    }
+                }
+                return View(inv);
+            }
+            else if (searchString == null)
+            {
+                return View(db.InventoryModels.ToList());
+            }
             return View(db.InventoryModels.ToList());
         }
 
@@ -77,7 +96,7 @@ namespace ASP_Reboot.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,SKU,productName,price,quantity")] InventoryModels inventoryModels)
+        public ActionResult Create([Bind(Include = "Id,SKU,productName,price,quantity,store")] InventoryModels inventoryModels)
         {
             if (ModelState.IsValid)
             {
@@ -109,7 +128,7 @@ namespace ASP_Reboot.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,SKU,productName,price,quantity")] InventoryModels inventoryModels)
+        public ActionResult Edit([Bind(Include = "Id,SKU,productName,price,quantity,store")] InventoryModels inventoryModels)
         {
             if (ModelState.IsValid)
             {

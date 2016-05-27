@@ -1,0 +1,12 @@
+Inventory tracking system
+Item inventory page
+  SKU field
+  Quantity field (should display different colors if at warning levels or refill levels)
+  Warning quantity level field (only managers can view/edit)
+  Refill quantity level field (only managers can view/edit)
+  Refill behavior field (only managers can view) -- when quantity drops below refill quantity, automatically send an email notice to managers AND/OR automatically generate an order on SalesForce
+"Do we have it in stock" page
+  User can type in a SKU on search box on page
+  Map shows below search box with markers for each store in area that has quantity for that SKU
+  Table below map lists which stores have that SKU, associated quantities
+  Current store always appears first in table, with some kind of emphasis (bold, italics, color, etc.) unless current store does not have that item
