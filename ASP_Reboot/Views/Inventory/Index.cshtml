@@ -51,6 +51,10 @@
         </div>
         @foreach (var item in Model)
         {
+            if (item.quantity >= 10)
+            { a_class = "green"; }
+            else if (item.quantity >= 5){ a_class = "amber"; }
+            else if (item.quantity < 5){ inv.warningMail(item.quantity.ToString(), item.productName); a_class = "red"; }
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.SKU)
@@ -61,7 +65,6 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.price)
                 </td>
-                @{a_class = inv.classpick(item.quantity, item.productName, item.Id);}
                 <td class="@a_class">
                     @Html.DisplayFor(modelItem => item.quantity)
                 </td>

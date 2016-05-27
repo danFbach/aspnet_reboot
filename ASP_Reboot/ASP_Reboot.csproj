@@ -254,6 +254,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\InventoryModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\StoreInvViewModel.cs" />
     <Compile Include="Models\StoreModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
