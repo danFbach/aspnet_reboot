@@ -2,7 +2,6 @@
 @using ASP_Reboot.Controllers
 
 @{
-    InventoryController inv = new InventoryController();
     ViewBag.Title = "Index";
     string a_class = "";
 }
@@ -49,12 +48,13 @@
                 <input type="text" name="searchString" required class="search-box" placeholder="Search SKU#" />
             </form>
         </div>
+        
         @foreach (var item in Model)
         {
             if (item.quantity >= 10)
             { a_class = "green"; }
-            else if (item.quantity >= 5){ a_class = "amber"; }
-            else if (item.quantity < 5){ inv.warningMail(item.quantity.ToString(), item.productName); a_class = "red"; }
+            else if (item.quantity >= 5) { a_class = "amber"; }
+            else if (item.quantity < 5) { a_class = "red"; }
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.SKU)
@@ -82,9 +82,8 @@
 
 }
 <div id="map">
-
     <script type="text/javascript">
-
+        
         var locations = [
           ['Madison Super Organic Farm ', 43.084937, -89.390259, 4],
           ['Saylesville Farms', 43.299697, -88.438911, 5],

@@ -32,10 +32,10 @@ namespace ASP_Reboot.Controllers
         public ActionResult Index(int? searchString)
         {
             List<InventoryModels> inv = new List<InventoryModels>();
+            var inventory = db.InventoryModels.ToList();
 
             if (searchString != (null))
             {
-                var inventory = db.InventoryModels.ToList();
                 foreach(InventoryModels item in inventory)
                 {
                     if (item.SKU.Equals(searchString))
@@ -47,9 +47,22 @@ namespace ASP_Reboot.Controllers
             }
             else if (searchString == null)
             {
-                return View(db.InventoryModels.ToList());
+                foreach(InventoryModels items in inventory)
+                {
+                    if(items.quantity < 5 && items.warningSent == 0)
+                    {
+                        warningMail(items.quantity.ToString(), items.productName);
+                        items.warningSent = 1;
+                    }
+                    else if(items.quantity >= 5)
+                    {
+                        items.warningSent = 0;
+                    }
+                    db.SaveChanges();
+                }
+                return View(inventory);
             }
-            return View(db.InventoryModels.ToList());
+            return View(inventory);
         }
 
         // GET: Inventory/Details/5
@@ -120,30 +133,30 @@ namespace ASP_Reboot.Controllers
         }
 
         // GET: Inventory/Edit/5
-        public ActionResult Edit(int? id, StoreInvViewModel sivm)
+        public ActionResult Edit(int? id)
         {
 
-            List<InventoryModels> inv = db.InventoryModels.ToList();
+            InventoryModels inv = db.InventoryModels.Find(id);
             List<StoreModels> stores = db.StoreModels.ToList();
-
-            for (int i = 0; i < inv.Count(); i++)
-            {
-                InventoryModels inventory = inv[i];
-
-            }
             List<SelectListItem> storelist = new List<SelectListItem>();
-            StoreInvViewModel storemodel = new StoreInvViewModel();
+            StoreInvViewModel storeinv = new StoreInvViewModel();
 
+            
             foreach (StoreModels store in stores)
             {
 
                 string txt = "Id: " + store.Id + " City: " + store.city;
                 storelist.Add(new SelectListItem() { Text = txt, Value = store.Id.ToString() });
             }
-            storemodel.alist = storelist;
 
-            return View(storemodel);
-
+            storeinv.inventory_Id = inv.Id;
+            storeinv.SKU = inv.SKU;
+            storeinv.productName = inv.productName;
+            storeinv.price = inv.price;
+            storeinv.quantity = inv.quantity;
+            storeinv.inv_store_id = inv.store_id;
+            storeinv.alist = storelist;
+            
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -153,7 +166,7 @@ namespace ASP_Reboot.Controllers
             {
                 return HttpNotFound();
             }
-            return View(inventoryModels);
+            return View(storeinv);
         }
 
         // POST: Inventory/Edit/5
@@ -163,20 +176,22 @@ namespace ASP_Reboot.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(StoreInvViewModel sivm)
         {
-            InventoryModels inv = new InventoryModels();
+
+            InventoryModels invEdit = db.InventoryModels.Find(sivm.inventory_Id);
+            db.InventoryModels.Remove(invEdit);
+            db.SaveChanges();
 
             if (ModelState.IsValid)
             {
-                inv.Id = sivm.inventory_Id;
-                inv.price = sivm.price;
-                inv.productName = sivm.productName;
-                inv.quantity = sivm.quantity;
-                inv.SKU = sivm.SKU;
-                inv.warningSent = 0;
-                inv.store_id = sivm.inv_store_id;
+                invEdit.Id = sivm.inventory_Id;
+                invEdit.price = sivm.price;
+                invEdit.productName = sivm.productName;
+                invEdit.quantity = sivm.quantity;
+                invEdit.SKU = sivm.SKU;
+                invEdit.warningSent = 0;
+                invEdit.store_id = sivm.inv_store_id;
 
-
-                db.InventoryModels.Add(inv);
+                db.InventoryModels.Add(invEdit);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
