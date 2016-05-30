@@ -120,8 +120,30 @@ namespace ASP_Reboot.Controllers
         }
 
         // GET: Inventory/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id, StoreInvViewModel sivm)
         {
+
+            List<InventoryModels> inv = db.InventoryModels.ToList();
+            List<StoreModels> stores = db.StoreModels.ToList();
+
+            for (int i = 0; i < inv.Count(); i++)
+            {
+                InventoryModels inventory = inv[i];
+
+            }
+            List<SelectListItem> storelist = new List<SelectListItem>();
+            StoreInvViewModel storemodel = new StoreInvViewModel();
+
+            foreach (StoreModels store in stores)
+            {
+
+                string txt = "Id: " + store.Id + " City: " + store.city;
+                storelist.Add(new SelectListItem() { Text = txt, Value = store.Id.ToString() });
+            }
+            storemodel.alist = storelist;
+
+            return View(storemodel);
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -139,16 +161,26 @@ namespace ASP_Reboot.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,SKU,productName,price,quantity,warningSent,store_id")] InventoryModels inventoryModels)
+        public ActionResult Edit(StoreInvViewModel sivm)
         {
-            var warn = inventoryModels.warningSent;
+            InventoryModels inv = new InventoryModels();
+
             if (ModelState.IsValid)
             {
-                db.Entry(inventoryModels).State = EntityState.Modified;
+                inv.Id = sivm.inventory_Id;
+                inv.price = sivm.price;
+                inv.productName = sivm.productName;
+                inv.quantity = sivm.quantity;
+                inv.SKU = sivm.SKU;
+                inv.warningSent = 0;
+                inv.store_id = sivm.inv_store_id;
+
+
+                db.InventoryModels.Add(inv);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(inventoryModels);
+            return View(sivm);
         }
 
         // GET: Inventory/Delete/5

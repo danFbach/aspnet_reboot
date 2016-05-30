@@ -30,5 +30,6 @@ namespace ASP_Reboot.Models
         [Required]
         [Display(Name = "Store Id")]
         public int store_id { get; set; }
+
     }
 }
