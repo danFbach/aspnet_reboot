@@ -19,7 +19,7 @@ namespace ASP_Reboot.Controllers
         public async Task warningMail(string quantity, string productName)
         {
             var myMessage = new SendGridMessage();
-            myMessage.From = new MailAddress("no-reply@devHax.prod", "MOTHA FUCKIN TINY RICK");
+            myMessage.From = new MailAddress("no-reply@devHax.prod", "DevHax Refill reminder");
             myMessage.AddTo("theguy@wi.rr.com");
             myMessage.Subject = productName + " need to be refilled!";
             myMessage.Text = "There are only " + quantity + " " + productName + " remaining in stock. Order more soon.";
