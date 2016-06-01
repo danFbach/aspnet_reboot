@@ -31,39 +31,153 @@ namespace ASP_Reboot.Controllers
         // GET: Inventory
         public ActionResult Index(int? searchString)
         {
-            List<InventoryModels> inv = new List<InventoryModels>();
-            var inventory = db.InventoryModels.ToList();
+            if (User.IsInRole("Admin"))
+            {
+                List<StoreInvViewModel> storeinv = new List<StoreInvViewModel>();
+                List<InventoryModels> inv = new List<InventoryModels>();
+                var inventory = db.InventoryModels.ToList();
+                var stores = db.StoreModels.ToList();
 
-            if (searchString != (null))
-            {
-                foreach(InventoryModels item in inventory)
+                if (searchString != (null))
                 {
-                    if (item.SKU.Equals(searchString))
+                    foreach (InventoryModels item in inventory)
                     {
-                        inv.Add(item);
+                        StoreInvViewModel sivm = new StoreInvViewModel();
+                        if (item.SKU.Equals(searchString))
+                        {
+                            sivm.inventory_Id = item.Id;
+                            sivm.SKU = item.SKU;
+                            sivm.productName = item.productName;
+                            sivm.price = item.price;
+                            sivm.quantity = item.quantity;
+                            sivm.warningLevel = item.warningLevel;
+                            sivm.refillLevel = item.refillLevel;
+                            sivm.inv_store_id = item.store_id;
+                            foreach (StoreModels store in stores)
+                            {
+                                if (item.store_id == store.Id)
+                                {
+                                    sivm.city = store.city;
+                                    sivm.geoLat = store.geoLat;
+                                    sivm.getLong = store.getLong;
+                                }
+                            }
+                            storeinv.Add(sivm);
+                        }
                     }
+                    return View("AdminIndex", storeinv);
                 }
-                return View(inv);
-            }
-            else if (searchString == null)
-            {
-                foreach(InventoryModels items in inventory)
+                else
                 {
-                    if(items.quantity < 5 && items.warningSent == 0)
+                    foreach (InventoryModels item in inventory)
                     {
-                        warningMail(items.quantity.ToString(), items.productName);
-                        items.warningSent = 1;
-                    }
-                    else if(items.quantity >= 5)
-                    {
-                        items.warningSent = 0;
+                        StoreInvViewModel sivm = new StoreInvViewModel();
+                        if (item.quantity < 5 && item.warningSent == 0)
+                        {
+                            warningMail(item.quantity.ToString(), item.productName);
+                            item.warningSent = 1;
+                        }
+                        else if (item.quantity >= 5)
+                        {
+                            item.warningSent = 0;
+                        }
+                        sivm.inventory_Id = item.Id;
+                        sivm.SKU = item.SKU;
+                        sivm.productName = item.productName;
+                        sivm.price = item.price;
+                        sivm.quantity = item.quantity;
+                        sivm.warningLevel = item.warningLevel;
+                        sivm.refillLevel = item.refillLevel;
+                        sivm.inv_store_id = item.store_id;
+                        foreach (StoreModels store in stores)
+                        {
+                            if (item.store_id == store.Id)
+                            {
+                                sivm.city = store.city;
+                                sivm.geoLat = store.geoLat;
+                                sivm.getLong = store.getLong;
+                            }
+                        }
+                        storeinv.Add(sivm);
                     }
                     db.SaveChanges();
+                    return View("AdminIndex", storeinv);
                 }
-                return View(inventory);
             }
-            return View(inventory);
-        }
+            else
+            {
+
+                List<StoreInvViewModel> storeinv = new List<StoreInvViewModel>();
+                List<InventoryModels> inv = new List<InventoryModels>();
+                var inventory = db.InventoryModels.ToList();
+                var stores = db.StoreModels.ToList();
+                if (searchString != (null))
+                {
+                    foreach (InventoryModels item in inventory)
+                    {
+                        StoreInvViewModel sivm = new StoreInvViewModel();
+                        if (item.SKU.Equals(searchString))
+                        {
+                            sivm.inventory_Id = item.Id;
+                            sivm.SKU = item.SKU;
+                            sivm.productName = item.productName;
+                            sivm.price = item.price;
+                            sivm.quantity = item.quantity;
+                            sivm.warningLevel = item.warningLevel;
+                            sivm.refillLevel = item.refillLevel;
+                            sivm.inv_store_id = item.store_id;
+                            foreach (StoreModels store in stores)
+                            {
+                                if (item.store_id == store.Id)
+                                {
+                                    sivm.city = store.city;
+                                    sivm.geoLat = store.geoLat;
+                                    sivm.getLong = store.getLong;
+                                }
+                            }
+                            storeinv.Add(sivm);
+                        }
+                    }
+                    return View("Index", storeinv);
+                }
+                else
+                {
+                    foreach (InventoryModels item in inventory)
+                    {
+                        StoreInvViewModel sivm = new StoreInvViewModel();
+                        if (item.quantity < 5 && item.warningSent == 0)
+                        {
+                            warningMail(item.quantity.ToString(), item.productName);
+                            item.warningSent = 1;
+                        }
+                        else if (item.quantity >= 5)
+                        {
+                            item.warningSent = 0;
+                        }
+                        sivm.inventory_Id = item.Id;
+                        sivm.SKU = item.SKU;
+                        sivm.productName = item.productName;
+                        sivm.price = item.price;
+                        sivm.quantity = item.quantity;
+                        sivm.warningLevel = item.warningLevel;
+                        sivm.refillLevel = item.refillLevel;
+                        sivm.inv_store_id = item.store_id;
+                        foreach (StoreModels store in stores)
+                        {
+                            if (item.store_id == store.Id)
+                            {
+                                sivm.city = store.city;
+                                sivm.geoLat = store.geoLat;
+                                sivm.getLong = store.getLong;
+                            }
+                        }
+                        storeinv.Add(sivm);
+                    }
+                    db.SaveChanges();
+                    return View("Index", storeinv);
+                    }
+                }
+            }
 
         // GET: Inventory/Details/5
         public ActionResult Details(int? id)
@@ -121,6 +235,8 @@ namespace ASP_Reboot.Controllers
                 inv.productName = storeinv.productName;
                 inv.quantity = storeinv.quantity;
                 inv.SKU = storeinv.SKU;
+                inv.warningLevel = storeinv.warningLevel;
+                inv.refillLevel = storeinv.refillLevel;
                 inv.warningSent = 0;
                 inv.store_id = storeinv.inv_store_id;
 
@@ -154,6 +270,8 @@ namespace ASP_Reboot.Controllers
             storeinv.productName = inv.productName;
             storeinv.price = inv.price;
             storeinv.quantity = inv.quantity;
+            storeinv.warningLevel = inv.warningLevel;
+            storeinv.refillLevel = inv.refillLevel;
             storeinv.inv_store_id = inv.store_id;
             storeinv.alist = storelist;
             
@@ -189,6 +307,8 @@ namespace ASP_Reboot.Controllers
                 invEdit.quantity = sivm.quantity;
                 invEdit.SKU = sivm.SKU;
                 invEdit.warningSent = 0;
+                invEdit.warningLevel = sivm.warningLevel;
+                invEdit.refillLevel = sivm.refillLevel;
                 invEdit.store_id = sivm.inv_store_id;
 
                 db.InventoryModels.Add(invEdit);

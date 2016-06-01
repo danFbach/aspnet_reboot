@@ -7,7 +7,6 @@
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/qty_mod.css")
     @Scripts.Render("~/bundles/modernizr")
-
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -23,8 +22,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Inventory","Index","Inventory")</li>
-                    <li>@Html.ActionLink("Store Home","Index","Store")</li>
+                    <li>@Html.ActionLink("Inventory", "Index", "Inventory")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -36,8 +34,8 @@
         <footer style="width:100%;text-align:center;">
             <center><a href="/Home/Index"><img src="~/Content/Media/create_thumb4.png" style="height:150px;" /></a></center>
             <p>
-                &copy; @DateTime.Now.Year - DevHax Productions - 
-                @Html.ActionLink("About", "About", "Home") - 
+                &copy; @DateTime.Now.Year - DevHax Productions -
+                @Html.ActionLink("About", "About", "Home") -
                 @Html.ActionLink("Contact", "Contact", "Home")
             </p>
         </footer>

@@ -17,6 +17,10 @@ namespace ASP_Reboot.Models
         public decimal price { get; set; }
         [Display(Name = "Quantity In Stock")]
         public int quantity { get; set; }
+        [Display(Name = "Warning Level")]
+        public int warningLevel { get; set; }
+        [Display(Name = "Refill Level")]
+        public int refillLevel { get; set; }
         [Display(Name = "Store")]
         public int inv_store_id { get; set; }
         public int store_Id { get; set; }

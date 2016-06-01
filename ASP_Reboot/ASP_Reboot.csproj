@@ -249,6 +249,10 @@
     <Compile Include="Migrations\201605272059095_adf.Designer.cs">
       <DependentUpon>201605272059095_adf.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606010009581_add warning and refill levels to inventory.cs" />
+    <Compile Include="Migrations\201606010009581_add warning and refill levels to inventory.Designer.cs">
+      <DependentUpon>201606010009581_add warning and refill levels to inventory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -346,6 +350,8 @@
     <Content Include="Views\Store\Details.cshtml" />
     <Content Include="Views\Store\Edit.cshtml" />
     <Content Include="Views\Store\Index.cshtml" />
+    <Content Include="Views\Inventory\AdminIndex.cshtml" />
+    <Content Include="Views\Shared\_LayoutUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -360,6 +366,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605272059095_adf.resx">
       <DependentUpon>201605272059095_adf.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606010009581_add warning and refill levels to inventory.resx">
+      <DependentUpon>201606010009581_add warning and refill levels to inventory.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

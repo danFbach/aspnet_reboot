@@ -31,5 +31,13 @@ namespace ASP_Reboot.Models
         [Display(Name = "Store Id")]
         public int store_id { get; set; }
 
+        [Required]
+        [Display(Name = "Warning Level")]
+        public int warningLevel { get; set; }
+
+        [Required]
+        [Display(Name = "Refill Level")]
+        public int refillLevel { get; set; }
+
     }
 }
