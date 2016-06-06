@@ -30,5 +30,6 @@ namespace ASP_Reboot.Models
         [Required]
         [Display(Name = "GeoLong")]
         public virtual double getLong { get; set; }
+        
     }
 }

@@ -1,0 +1,128 @@
+﻿@model IEnumerable<ASP_Reboot.Models.StoreInvViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    string a_class = "";
+    string store_class = "";
+    List<List<Object>> stores = new List<List<Object>>();
+    string currentStore = "";
+}
+@{
+    foreach (var item in Model)
+    {
+        stores.Add(new List<Object> { item.city, item.geoLat, item.getLong, item.inv_store_id });
+    }
+    int storeNum = stores.Count();
+}
+
+
+<head>
+    <meta http-equiv="content-type" content="initial-scale=1.0" />
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsXwyNRilLueuNc1WQg55_gwyiFlTiZE4&"
+            type="text/javascript"></script>
+    <style>
+        #map {
+            margin-left: 20%;
+            width: 65%;
+            height: 300px;
+        }
+    </style>
+</head>
+<h2>Index</h2>
+
+<p>
+    <h4>@Html.ActionLink("Create New", "Create")</h4>
+</p>
+<div class="search-wrapper">
+    <form>
+        <input type="text" name="searchString" required class="search-box" placeholder="Search SKU#" />
+    </form>
+</div>
+@using (Html.BeginForm("Index", "Inventory"))
+{
+    <table class="table" id="new_stores">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SKU)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.productName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.inv_store_id)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+
+            if (currentStore == item.city) { store_class = "store_bold"; } else { store_class = "store_reg"; }
+            string storeInfo = "ID: " + item.inv_store_id + " City: " + item.city;
+            if (item.quantity >= item.warningLevel)
+            { a_class = "green"; }
+            else if (item.quantity >= item.refillLevel) { a_class = "amber"; }
+            else { a_class = "red"; }
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SKU)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.productName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.price)
+                </td>
+                <td class="@a_class">
+                    @Html.DisplayFor(modelItem => item.quantity)
+                </td>
+                <td class="@store_class">
+                    @Html.DisplayFor(modelItem => storeInfo)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.inventory_Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.inventory_Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.inventory_Id })
+                </td>
+            </tr>
+        }
+    </table>
+
+}
+
+<div id="map"></div>
+
+<script type="text/javascript">
+    var stores = @Html.Raw(Json.Encode(stores));
+    var map = new google.maps.Map(document.getElementById('map'), {
+        center: new google.maps.LatLng(stores[0][1], stores[0][2]),
+        zoom: 8,
+        mapTypeId: google.maps.MapTypeId.HYBRID
+    });
+
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker, i;
+
+    for (i = 0; i < stores.length; i++) {
+        marker = new google.maps.Marker({
+            position: new google.maps.LatLng(stores[i][1], stores[i][2]),
+            map: map
+        });
+
+        google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                        
+            return function () {
+                    infowindow.setContent(stores[i][0]);
+                infowindow.open(map, marker);
+                
+            }
+        })(marker, i));        
+    }
+</script>

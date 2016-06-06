@@ -27,3 +27,9 @@ td.amber {
 	box-shadow: 0 0 3px 3px #e85c00;
 	border: 2px solid #33ccff;
 }
+.store_bold{
+    font:bold;
+}
+.store_reg{
+    font:normal;
+}
