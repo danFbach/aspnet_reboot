@@ -1,1 +1,3 @@
 # aspnet_reboot
+
+This was my first attempt at an ASP.Net project. This project was intended to represent a simple e-commerce-like website. This gave me a good start to ASPnet and using SQL realistically. I implemented a few interesting features here, used a Google Maps API, querying a database through the web interface, page layout/colors change dynamically and sendgrid implemented to send emails. Not my best example of ASPNet experience, see "capstone" repo.

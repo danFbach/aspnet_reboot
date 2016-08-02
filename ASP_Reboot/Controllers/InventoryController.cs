@@ -4,9 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using ASP_Reboot.Models;
-using System.Net.Mail;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
+using System.Net.Mail;
 using SendGrid;
 using System.Collections.Generic;
 
